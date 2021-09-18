@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chit-Chat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+    <div class="container rounded border" style="margin-top:100px;">
+        <div class="row" style="margin: 20px;">
+            <p class="fw-bold" (click)="getOnlineUsers()">Online</p>
+            <div class="col-4">
+                <div class="card" style="width: 8rem;">
+                  <ul class="list-group list-group-flush" *ngFor="let u of onlineUsers">
+                    <li class="list-group-item" (click)="setTo(u)" >{{u}}</li>
+                  </ul>
+                </div>
+              <!-- <p class="fw-bold" >{{u}}</p> --> 
+            </div>
+            <div class="col-8" style="border:3px">
+                <div class="input-group" style="margin-bottom: 20px;">
+                    <input type="text" [(ngModel)]="user.from" class="form-control" ng-required="true"/>
+                    <button (click)="connect()" class="input-group-text btn btn-success">{{connection}}</button>
+                </div>
+                  <p class="font-monospace fs-2">Chat with {{selectedUser}}</p>
+                <div  *ngFor="let msg of messages">
+                  <p class="fw-bold text-start" *ngIf="startWithFrom(msg)">{{msg}}</p>
+                  <p class="fw-bold text-end" *ngIf="startWithTo(msg)">{{msg}}</p>
+                </div>
+                <div class="input-group">
+                  <span class="input-group-text">{{user.from}}</span>
+                  <input class="form-control" aria-label="Type here" (keyup.enter)="sendMessage($event)"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
